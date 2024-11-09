@@ -1,0 +1,22 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+       <head>
+           <meta charset="utf-8">
+           <title>Song Details</title>
+
+       </head>
+       <body>
+           <header>
+               <h1 th:text="${session.song.title}"></h1>
+           </header>
+           <section>
+                <h2 th:text="${session.song.genre}"></h2>
+                <h2 th:text="${session.song.releaseYear}"></h2>
+                <h2>Performers:</h2>
+                <ul>
+                    <li th:text="${session.artist.firstName} + ' ' + ${session.artist.lastName}"></li>
+                </ul>
+           </section>
+
+       </body>
+   </html>
