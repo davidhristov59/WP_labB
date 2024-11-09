@@ -10,7 +10,7 @@ import java.util.List;
 public class Song {
     String trackId;
     String title;
-    String genre;
+    Genre genre;
     int releaseYear;
     List<Artist> performers;
 }

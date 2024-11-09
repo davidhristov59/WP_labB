@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.lab.service.impl;
 
 import mk.ukim.finki.wp.lab.model.Artist;
+import mk.ukim.finki.wp.lab.model.Genre;
 import mk.ukim.finki.wp.lab.model.Song;
 import mk.ukim.finki.wp.lab.repository.SongRepository;
 import mk.ukim.finki.wp.lab.service.SongService;
@@ -30,5 +31,10 @@ public class SongServiceImpl implements SongService {
     @Override
     public Song findByTrackId(String trackId) {
         return repository.findByTrackId(trackId);
+    }
+
+    @Override
+    public List<Song> findSongsByGenre(Genre genre) {
+        return repository.searchSongByGenre(genre);
     }
 }

@@ -5,7 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mk.ukim.finki.wp.lab.model.Genre;
 import mk.ukim.finki.wp.lab.model.Song;
+import mk.ukim.finki.wp.lab.service.GenreService;
 import mk.ukim.finki.wp.lab.service.SongService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -19,10 +21,12 @@ public class SongListServlet extends HttpServlet {
 
     private final SpringTemplateEngine templateEngine;
     private final SongService songService;
+    private final GenreService genreService;
 
-    public SongListServlet(SpringTemplateEngine templateEngine, SongService songService) {
+    public SongListServlet(SpringTemplateEngine templateEngine, SongService songService, GenreService genreService) {
         this.templateEngine = templateEngine;
         this.songService = songService;
+        this.genreService = genreService;
     }
 
     @Override
@@ -34,7 +38,16 @@ public class SongListServlet extends HttpServlet {
 
         WebContext context = new WebContext(webExchange);
 
-        context.setVariable("songs", songService.listSongs());
+        context.setVariable("genres", genreService.listGenres());
+
+        String genre = req.getParameter("genre");
+
+        if (genre != null && !genre.isEmpty()){ //najdi gi pesnite spored zanr ako ne e null
+            context.setVariable("songs", songService.findSongsByGenre(new Genre(genre)));
+        }
+        else {
+            context.setVariable("songs", songService.listSongs());
+        }
 
         templateEngine.process("listSongs.html", context, resp.getWriter());
 

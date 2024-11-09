@@ -2,9 +2,11 @@ package mk.ukim.finki.wp.lab.repository;
 
 import mk.ukim.finki.wp.lab.bootstrap.DataHolder;
 import mk.ukim.finki.wp.lab.model.Artist;
+import mk.ukim.finki.wp.lab.model.Genre;
 import mk.ukim.finki.wp.lab.model.Song;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class SongRepository {
@@ -27,6 +29,12 @@ public class SongRepository {
         }
 
         return artist;
+    }
+
+    public List<Song> searchSongByGenre(Genre genre){
+        return DataHolder.songs.stream()
+                .filter(song -> song.getGenre().equals(genre))
+                .collect(Collectors.toList());
     }
 
 }

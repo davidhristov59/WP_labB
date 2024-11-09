@@ -16,8 +16,26 @@
 </header>
 <main>
 
-    <form th:method="POST" th:action="@{/listSongs}">
+    <form th:method="GET" th:action="@{/listSongs}">
 
+        <div>
+
+            <h2>Filter by Genre</h2>
+
+            <select name="genre">
+                <option value="">All</option>
+
+                <!--Display all genres -->
+                <option th:each="genre : ${genres}" th:value="${genre.name}" th:text="${genre.name}"></option>
+            </select>
+
+            <input type="submit" value="Filter">
+            <a href="@{/}">Reset</a>
+        </div>
+
+    </form>
+
+    <form th:method="POST" th:action="@{/listSongs}">
         <h2>Choose a song:</h2>
         <!-- Display radio buttons for each song,
                 the value should be the trackId
